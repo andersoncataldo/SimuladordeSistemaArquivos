@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         FileSystemSimulator fs = new FileSystemSimulator();
+        fs.recover();
         Scanner scanner = new Scanner(System.in);
         String command;
 

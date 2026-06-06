@@ -36,17 +36,19 @@ O simulador utiliza uma estrutura de árvore para representar o sistema de arqui
 * **File:** Representa as folhas da árvore.
 * **FileSystemSimulator:** Gerencia o estado atual (diretório de trabalho) e coordena as operações.
 
-### Journaling
-O log foi implementado através da classe `Journal`, que utiliza a API de I/O do Java para gravar cada operação em um arquivo chamado `journal.log` no disco físico. O formato de registro inclui um carimbo de data/hora e a descrição da operação, garantindo que o histórico de modificações seja preservado externamente à memória da JVM.
+### Journaling e Persistência (Modo Avançado)
+O log foi implementado através da classe `Journal`, que utiliza a API de I/O do Java para gravar cada operação em um arquivo chamado `journal.log` no disco físico. 
+* **Persistência Real:** Diferente de simuladores que perdem dados ao fechar, este projeto implementa um mecanismo de **Recovery**.
+* **Mecanismo de Recuperação:** Ao iniciar, o `FileSystemSimulator` lê o arquivo `journal.log`, interpreta as operações passadas e reconstrói toda a árvore de diretórios e arquivos em memória. Isso garante que o estado do sistema seja preservado entre execuções, simulando fielmente um sistema de arquivos real baseado em log.
 
 ---
 
 ## Parte 3: Implementação em Java
 
-* **FileSystemSimulator:** Centraliza a lógica de negócio. Implementa métodos como `mkdir`, `rm`, `cp` e `rename`. É responsável por garantir que o `Journal` seja acionado antes de qualquer modificação.
+* **FileSystemSimulator:** Centraliza a lógica de negócio. Implementa métodos como `mkdir`, `rm`, `cp` e `rename`. Possui o método `recover()` que garante a persistência através do log.
 * **File:** Classe simples que armazena metadados básicos do arquivo, como nome e referência ao diretório pai.
 * **Directory:** Gerencia as coleções de arquivos e subdiretórios, permitindo a navegação e busca de itens por nome.
-* **Journal:** Classe utilitária responsável pela persistência física do log. Abre o arquivo `journal.log` em modo "append" para garantir que novos registros não apaguem os anteriores.
+* **Journal:** Classe utilitária responsável pela persistência física do log. Permite tanto a escrita (append) quanto a leitura para fins de recuperação.
 
 ---
 
@@ -68,15 +70,14 @@ Após a compilação, execute:
 java Main
 ```
 
-### Exemplos Práticos
-* `mkdir documentos`: Cria um diretório chamado "documentos".
-* `touch notas.txt`: Cria um arquivo vazio chamado "notas.txt".
-* `ls`: Lista o conteúdo do diretório atual.
-* `rename notas.txt rascunho.txt`: Renomeia o arquivo.
-* `cp rascunho.txt rascunho_copy.txt`: Copia o arquivo.
-* `rm rascunho.txt`: Apaga o arquivo.
+### Persistência
+Para testar a persistência:
+1. Abra o simulador e crie alguns arquivos e pastas.
+2. Saia do simulador com `exit`.
+3. Abra o simulador novamente. Note que o sistema exibirá "Recuperando estado..." e seus arquivos estarão lá.
+4. Para resetar o simulador, basta apagar o arquivo `journal.log`.
 
 ---
 
 ## Resultados Esperados
-O simulador fornece insights valiosos sobre a camada de abstração que os Sistemas Operacionais oferecem sobre o hardware. Através da implementação do Journaling, é possível observar como a segurança de dados é priorizada, sacrificando uma pequena parcela de desempenho em favor da integridade. Este projeto demonstra que a consistência estrutural é tão importante quanto o armazenamento do dado em si.
+O simulador fornece insights valiosos sobre a camada de abstração que os Sistemas Operacionais oferecem sobre o hardware. Através da implementação do Journaling com recuperação automática, o projeto demonstra como a integridade de dados é mantida mesmo após o encerramento do sistema. Este projeto comprova que um sistema de arquivos é, em sua essência, uma estrutura de dados persistente gerenciada por transações lógicas.
