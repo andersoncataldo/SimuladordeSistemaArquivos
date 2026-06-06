@@ -1,16 +1,23 @@
 # Simulador de Sistema de Arquivos
 
+## Desenvolvimento
+- Aluno: Anderson Viana - 2410492
+- Curso: Ciência da Computação
+- Semestre: 5.º
+- Finalização: 05/06/2026
+- Repositório: https://github.com/andersoncataldo/SimuladordeSistemaArquivos.git
+
 ## Resumo
-Este projeto consiste em um simulador acadêmico de sistema de arquivos desenvolvido em Java. Ele permite a criação, remoção, renomeação e cópia de arquivos e diretórios através de um shell interativo, implementando um mecanismo de journaling (log de transações) para garantir a integridade das operações.
+Este projeto consiste em um simulador acadêmico de sistema de arquivos desenvolvido em Java. Ele permite a criação, remoção, renomeação e cópia de arquivos e diretórios por um ‘shell’ interativo, implementando um mecanismo de journaling (log de transações) para garantir a integridade das operações.
 
 ## Introdução
 O gerenciamento de arquivos é uma das funções primordiais de um Sistema Operacional (SO), sendo responsável por organizar como os dados são armazenados e recuperados. A base dos SOs modernos depende de sistemas de arquivos robustos que possam lidar com falhas de energia ou travamentos do sistema sem corromper a estrutura de dados, o que torna o estudo de mecanismos como o journaling essencial.
 
 ## Objetivo
-O objetivo geral deste simulador é demonstrar o funcionamento lógico de um sistema de arquivos hierárquico e a implementação prática de um sistema de journaling (Write-Ahead Logging). O foco é garantir que toda operação de modificação seja registrada em um log físico antes de ser aplicada na estrutura em memória, simulando a proteção contra corrupção de dados.
+O objetivo geral deste simulador é demonstrar o funcionamento lógico de um sistema de arquivos hierárquico e a implementação prática de um sistema de journaling (Write-Ahead Logging). O foco é garantir que toda a operação de modificação seja registrada em um log físico antes de ser aplicada na estrutura em memória, simulando a proteção contra corrupção de dados.
 
 ## Metodologia
-O simulador foi implementado utilizando a linguagem Java, seguindo os princípios de Orientação a Objetos. A arquitetura divide-se em classes de modelo (representando arquivos e pastas) e classes de serviço (responsáveis pela lógica do sistema e pelo journaling). O sistema recebe comandos através de um console interativo (Shell), processa as chamadas de métodos e persiste o histórico de operações em um arquivo de log real no disco.
+O simulador foi implementado utilizando a linguagem Java, seguindo os princípios de Orientação a Objetos. A arquitetura divide-se em classes de modelo (representando arquivos e pastas) e classes de serviço (responsáveis pela lógica do sistema e pelo journaling). O sistema recebe comandos por um console interativo (Shell), processa as chamadas de métodos e persiste o histórico de operações em um arquivo de log real no disco.
 
 ---
 
@@ -74,10 +81,10 @@ java Main
 Para testar a persistência:
 1. Abra o simulador e crie alguns arquivos e pastas.
 2. Saia do simulador com `exit`.
-3. Abra o simulador novamente. Note que o sistema exibirá "Recuperando estado..." e seus arquivos estarão lá.
+3. Abra o simulador novamente. Note que o sistema exibirá "Recuperando estado…" e os seus arquivos estarão lá.
 4. Para resetar o simulador, basta apagar o arquivo `journal.log`.
 
 ---
 
 ## Resultados Esperados
-O simulador fornece insights valiosos sobre a camada de abstração que os Sistemas Operacionais oferecem sobre o hardware. Através da implementação do Journaling com recuperação automática, o projeto demonstra como a integridade de dados é mantida mesmo após o encerramento do sistema. Este projeto comprova que um sistema de arquivos é, em sua essência, uma estrutura de dados persistente gerenciada por transações lógicas.
+O simulador fornece insights valiosos sobre a camada de abstração que os Sistemas Operacionais oferecem sobre o hardware. Através da implementação do Journaling com recuperação automática, o projeto demonstra como a integridade de dados é mantida mesmo após o encerramento do sistema. Este projeto comprova que um sistema de arquivos é, na sua essência, uma estrutura de dados persistente gerenciada por transações lógicas.
